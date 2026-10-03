@@ -1,0 +1,22 @@
+{
+  "name": "stacklint",
+  "version": "0.0.1",
+  "private": true,
+  "homepage": "https://github.com/erkamyaman/stacklint",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "probot run ./dist/index.js",
+    "dev": "tsc --watch & probot run ./dist/index.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "probot": "^14.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "smee-client": "^5.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

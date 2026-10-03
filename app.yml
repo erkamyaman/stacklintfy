@@ -1,0 +1,6 @@
+default_events:
+  - pull_request
+default_permissions:
+  checks: write
+  pull_requests: read
+  metadata: read
