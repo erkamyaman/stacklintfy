@@ -11,9 +11,9 @@ export default (app: Probot) => {
 
       let rawConfig: unknown = null;
       try {
-        rawConfig = await context.config('stacklint.yml');
+        rawConfig = await context.config('stacklintfy.yml');
       } catch (error) {
-        context.log.warn({ error }, 'could not read stacklint.yml');
+        context.log.warn({ error }, 'could not read stacklintfy.yml');
       }
       const limits = parseLimits(rawConfig);
 
@@ -56,7 +56,7 @@ export default (app: Probot) => {
 
       await context.octokit.rest.checks.create(
         context.repo({
-          name: 'stacklint',
+          name: 'stacklintfy',
           head_sha: pr.head.sha,
           status: 'completed',
           conclusion: findings.length ? 'neutral' : 'success',

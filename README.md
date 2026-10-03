@@ -1,4 +1,4 @@
-# stacklint
+# stacklintfy
 
 GitHub App that lints each layer of a stacked pull request and (planned) posts one stack summary comment.
 
@@ -9,7 +9,7 @@ GitHub App that lints each layer of a stacked pull request and (planned) posts o
 
 ## Configure
 
-Add `.github/stacklint.yml` to a repo to change the limits. Both fields are optional.
+Add `.github/stacklintfy.yml` to a repo to change the limits. Both fields are optional.
 
 ```yaml
 maxChangedLines: 400

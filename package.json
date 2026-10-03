@@ -1,8 +1,8 @@
 {
-  "name": "stacklint",
+  "name": "stacklintfy",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://github.com/erkamyaman/stacklint",
+  "homepage": "https://github.com/erkamyaman/stacklintfy",
   "type": "module",
   "scripts": {
     "build": "tsc",
