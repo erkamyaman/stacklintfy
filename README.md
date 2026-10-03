@@ -2,8 +2,6 @@
 
 GitHub App that lints each layer of a stacked pull request and (planned) posts one stack summary comment.
 
-Working name, not final.
-
 ## Status
 
 - Check run per PR from size rules (`src/lint-layer.ts`).
