@@ -1,5 +1,5 @@
 import type { Probot } from 'probot';
-import { lintLayer } from './lint-layer.js';
+import { lintLayer, parseLimits } from './lint-layer.js';
 import { findStackFor, summarizeStack, type LayerReport, type Stack } from './stack-summary.js';
 
 export default (app: Probot) => {
@@ -9,11 +9,22 @@ export default (app: Probot) => {
       const pr = context.payload.pull_request;
       context.log.info({ stack: (context.payload as { stack?: unknown }).stack }, 'stack payload');
 
-      const findings = lintLayer({
-        additions: pr.additions ?? 0,
-        deletions: pr.deletions ?? 0,
-        changedFiles: pr.changed_files ?? 0,
-      });
+      let rawConfig: unknown = null;
+      try {
+        rawConfig = await context.config('stacklint.yml');
+      } catch (error) {
+        context.log.warn({ error }, 'could not read stacklint.yml');
+      }
+      const limits = parseLimits(rawConfig);
+
+      const findings = lintLayer(
+        {
+          additions: pr.additions ?? 0,
+          deletions: pr.deletions ?? 0,
+          changedFiles: pr.changed_files ?? 0,
+        },
+        limits,
+      );
 
       let summary = findings.length ? findings.map((f) => `- ${f.message}`).join('\n') : 'No findings.';
 
@@ -27,11 +38,14 @@ export default (app: Probot) => {
             reports.push({
               number: layer.number,
               state: layer.merged_at ? 'merged' : layer.state,
-              findings: lintLayer({
-                additions: data.additions,
-                deletions: data.deletions,
-                changedFiles: data.changed_files,
-              }),
+              findings: lintLayer(
+                {
+                  additions: data.additions,
+                  deletions: data.deletions,
+                  changedFiles: data.changed_files,
+                },
+                limits,
+              ),
             });
           }
           summary = `${summary}\n\nStack #${stack.number}\n\n${summarizeStack(reports)}`;
