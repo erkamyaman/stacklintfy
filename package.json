@@ -2,6 +2,7 @@
   "name": "stacklintfy",
   "version": "0.0.1",
   "private": true,
+  "license": "MIT",
   "homepage": "https://github.com/erkamyaman/stacklintfy",
   "type": "module",
   "scripts": {
